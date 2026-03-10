@@ -3,13 +3,13 @@
 This project automatically generates labels for images stored in an Amazon S3 bucket. 
 It uses AWS services and Python to upload images, analyze them, and return descriptive labels.
 
-## 🚀 Features
+## Features
 - Upload images to S3 using AWS CLI or Python
 - Automatically generate labels using AWS Rekognition (or custom logic if you implemented your own)
 - IAM‑secured access to S3 and Rekognition
 - Python script for end‑to‑end automation
 
-## 🧰 Technologies Used
+## Technologies Used
 - **AWS S3** – image storage
 - **AWS IAM** – secure access roles and policies
 - **AWS CLI** – command‑line automation
