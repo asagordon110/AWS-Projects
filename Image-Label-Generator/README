@@ -1,16 +1,104 @@
-# Image Label Generator (AWS + Python)
+# Image Label Generator (AWS Rekognition + S3 + Python)
 
-This project automatically generates labels for images stored in an Amazon S3 bucket. 
-It uses AWS services and Python to upload images, analyze them, and return descriptive labels.
+This project analyzes an image stored in an Amazon S3 bucket and returns detected labels using **AWS Rekognition**.  
+It also downloads the image locally, draws **bounding boxes** around detected objects, and displays the annotated image using Matplotlib.
+
+This repository demonstrates practical use of AWS services including S3, IAM, and Rekognition, combined with Python automation.
+
+---
 
 ## Features
-- Upload images to S3 using AWS CLI or Python
-- Automatically generate labels using AWS Rekognition (or custom logic if you implemented your own)
-- IAM‑secured access to S3 and Rekognition
-- Python script for end‑to‑end automation
+
+- Detects labels in an image stored in S3  
+- Prints label names and confidence scores  
+- Draws bounding boxes around detected objects  
+- Displays the annotated image using Matplotlib  
+- Uses AWS Rekognition’s `detect_labels` API  
+- Clean, simple Python implementation using boto3  
+
+---
 
 ## Technologies Used
-- **AWS S3** – image storage
-- **AWS IAM** – secure access roles and policies
-- **AWS CLI** – command‑line automation
-- **Python** – main application logic
+
+- **AWS S3** – stores the input image  
+- **AWS Rekognition** – performs label detection  
+- **AWS IAM** – controls access to S3 and Rekognition  
+- **Python** – main application logic  
+- **Matplotlib + Pillow** – image rendering and bounding boxes  
+
+---
+
+## 🔧 Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/asagordon110/image-label-generator.git
+cd image-label-generator
+
+### 2. pip install:
+-boto3
+-matplotlib
+-Pillow (PIL)
+
+### 3. Make sure AWS CLI is configured
+```bash
+aws configure
+
+Your IAM user must have permissions for:
+- rekognition:DetectLabels
+- s3:GetObject
+- s3:ListBucket
+
+4. Update configuration inside images.py
+Inside main():
+image = 'street2.jpg'
+bucket = 'aws-rekongition-image-bucket'
+
+Replace these with your actual S3 bucket and image filename.
+
+5. Run the script
+python src/images.py
+
+
+
+Example Output
+Detected labels in street2.jpg
+
+Label: Car
+Confidence: 97.4
+
+Label: Vehicle
+Confidence: 96.1
+
+Label: Person
+Confidence: 92.8
+
+Labels detected: 3
+
+
+A window will open showing the image with bounding boxes drawn around detected objects.
+
+IAM Policy Example
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": "arn:aws:s3:::your-bucket-name/*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "rekognition:DetectLabels"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+
+
