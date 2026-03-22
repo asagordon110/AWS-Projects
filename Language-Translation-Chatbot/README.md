@@ -45,7 +45,7 @@ This Lambda function:
 - Translates text using Amazon Translate
 - Returns the translated text to the chatbot
 
-```python
+python
 import boto3
 
 🔐 IAM Permissions
